@@ -16,8 +16,16 @@ def read_active_users():
     return session.query(User).filter(User.active).all()
 
 
-def read_user_by_email(new_email):
-    return session.query(User).filter(User.email == new_email).first()
+def read_user_by_email(email):
+    return session.query(User).filter(User.email == email).first()
+
+
+def read_password_by_email(email):
+    user = session.query(User).filter(User.email == email).first()
+    if user:
+        return user.password
+    return None
+
 
 
 def read_user_by_id(user_id):

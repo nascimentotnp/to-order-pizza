@@ -4,6 +4,7 @@ from sqlalchemy import Column, Integer, String, ForeignKey, Boolean, DateTime, f
 
 from domain.enum.purchase_status import PurchaseStatus
 from gateways.database import Base
+import bcrypt
 
 
 class Food(Base):
@@ -83,8 +84,14 @@ class User(Base):
     def __init__(self, name, email, password):
         self.name = name
         self.email = email
-        self.password = password
+        self.set_password(password)
         self.active = True
+
+    def set_password(self, password):
+        self.password = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt()).decode('utf-8')
+
+    def check_password(self, password):
+        return bcrypt.checkpw(password.encode('utf-8'), self.password.encode('utf-8'))
 
     def serialize(self):
         return {
