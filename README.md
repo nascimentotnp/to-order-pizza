@@ -61,3 +61,26 @@ Para desenvolvimento adicional, você pode considerar as seguintes etapas:
 
 
 
+## BackEnd Routes
+### FrontEnd Routes
+Usando método no Header POST http://localhost:8080
+- `/pizza`: Rota para cadastrar uma nova pizza.
+- `/pasta`: Rota para cadastrar uma nova massa.
+
+Usando método no Header GET http://localhost:8080
+- `/pizza`: Rota para Buscar pizza.
+- `/pasta`: Rota para Buscar  massa.
+
+
+Usando método no Header GET http://localhost:8080/id
+- `/pizza`: Rota para Buscar por id uma pizza.
+- `/pasta`: Rota para Buscar por id uma massa.
+
+Usando método no Header PUT http://localhost:8080/id
+- `/pizza`: Rota para Editar por id uma pizza.
+- `/pasta`: Rota para Editar por id uma massa.
+
+Usando método no Header PUT http://localhost:8080/id
+- `/pizza`: Rota para inativar por id uma pizza.
+- `/pasta`: Rota para inativar por id uma massa.
+- esse método inativa ou ativa, para não perder rastreabilidade, não excluo do banco
