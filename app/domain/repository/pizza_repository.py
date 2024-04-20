@@ -5,6 +5,7 @@ from gateways.connection import session
 def create_pizza(name, price, filling, size, stuffed_pizza_edge=False, flavor_stuffed_pizza_edge=None):
     pizza = Pizza(name=name, price=price, filling=filling, size=size, stuffed_pizza_edge=stuffed_pizza_edge,
                   flavor_stuffed_pizza_edge=flavor_stuffed_pizza_edge)
+
     session.add(pizza)
     session.commit()
 

@@ -17,7 +17,6 @@ pizza_model = pizza_ns.model('Pizza', {
     'flavor_stuffed_pizza_edge': fields.String(description='Sabor da borda recheada')
 })
 
-
 @pizza_ns.route('/<int:pizza_id>')
 @pizza_ns.param('pizza_id', 'ID da pizza')
 class PizzaController(Resource):
@@ -48,10 +47,13 @@ class PizzaController(Resource):
     @pizza_ns.doc('create_pizza')
     @pizza_ns.expect(pizza_model)
     def post(self):
-        data = pizza_ns.payload
-        data.pop('id', None)
-        create_pizza(**data)
-        return {'message': 'Pizza criada com sucesso'}, 201
+        try:
+            data = pizza_ns.payload
+            data.pop('id', None)
+            create_pizza(**data)
+            return {'message': 'Pizza criada com sucesso'}, 201
+        except Exception as e:
+            return {'message': 'Ocorreu um erro ao criar a pizza: {}'.format(str(e))}, 500
 
     @pizza_ns.doc('get_pizzas')
     @pizza_ns.marshal_list_with(pizza_model)
