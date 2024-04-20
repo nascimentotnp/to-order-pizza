@@ -49,6 +49,7 @@ class PizzaController(Resource):
     @pizza_ns.expect(pizza_model)
     def post(self):
         data = pizza_ns.payload
+        data.pop('id', None)
         create_pizza(**data)
         return {'message': 'Pizza criada com sucesso'}, 201
 
