@@ -1,29 +1,10 @@
-FROM python:3.10.10-alpine3.17 as build
+FROM python:3
 
-LABEL mainteiner=luizlagj
+WORKDIR /usr/src/app
 
-ENV PORT=$app_port 
+COPY requirements.txt ./
+RUN pip install --no-cache-dir -r requirements.txt
 
-#RUN pip install debugpy
-RUN pip install uvicorn==0.23.2
+COPY . .
 
-
-FROM python:3.10.10-alpine3.17 as runtime
-
-RUN adduser -D worker
-
-USER worker
-
-WORKDIR /home/worker
-
-ENV PATH="/home/worker/.local/bin:${PATH}"
-
-COPY --from=build /usr/local/ /usr/local
-COPY requirements.txt /tmp/requirements.txt
-COPY app/ /home/worker/src/
-
-RUN pip install --user -r /tmp/requirements.txt
-
-COPY --chown=worker:worker . .
-WORKDIR /home/worker/src/
-CMD [ "sh", "-c", "uvicorn main:app --host 0.0.0.0 --port $PORT --log-level warning" ]
+CMD [ "python", "./your-daemon-or-script.py" ]
