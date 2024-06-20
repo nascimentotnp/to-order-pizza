@@ -7,4 +7,4 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 COPY . .
 
-CMD [ "python", "./your-daemon-or-script.py" ]
+CMD [ "sh", "-c", "uvicorn main:app --host 0.0.0.0 --port $PORT --log-level warning" ]
